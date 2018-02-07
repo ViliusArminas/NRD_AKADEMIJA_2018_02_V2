@@ -1,0 +1,28 @@
+<h2>Inventory</h2>
+
+<div *ngIf="loading; else listBlock">
+    <div class="text-center">
+        <i class="fa fa-spinner fa-spin" style="font-size:48px"></i>
+    </div>
+</div>
+<ng-template #listBlock>
+    <table class="table">
+        <thead>
+            <tr>
+                <th *ngFor="let h of inventoryHeaders">{{h.label}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of inventory$ | async; let ind = index;">
+                <th>{{ind+1}}</th>
+                <th>{{i.name}}</th>
+                <th *ngIf="countItemsLeft(i.amount, i.taken) > 0; else outOfStock">{{countItemsLeft(i.amount, i.taken)}}</th>
+                <ng-template #outOfStock>
+                    <th>
+                        <i class="fa fa-times"></i>
+                    </th>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
