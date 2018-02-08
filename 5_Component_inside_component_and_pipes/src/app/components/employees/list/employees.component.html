@@ -1,0 +1,57 @@
+<h2>Employees</h2>
+<button type="button" (click)="openAddNew()" class="btn btn-success mb-3">Add new</button>
+
+<div *ngIf="loading; else listBlock">
+    <div class="text-center">
+        <i class="fa fa-spinner fa-spin" style="font-size:48px"></i>
+    </div>
+</div>
+<ng-template #listBlock>
+    <table class="table">
+        <thead>
+            <tr>
+                <th *ngFor="let h of employeeHeaders">{{h.label}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of employees$ | async; let ind = index;">
+                <th>{{ind+1}}</th>
+                <th>{{e.firstName}}</th>
+                <th>{{e.inventory.length}}</th>
+                <th>
+                    <button [disabled]="e.inventory.length === 0" class="btn btn-outline-primary" (click)="open(modal, ind)">
+                        <i class="fa fa-search"></i> Check details</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
+
+<ng-template #modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Employee inventory details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of employeeInventory$ | async; let ind = index;">
+                    <th>{{ind+1}}</th>
+                    <th>{{e.name}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c()">Close</button>
+    </div>
+</ng-template>

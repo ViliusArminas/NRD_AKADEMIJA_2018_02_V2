@@ -1,0 +1,111 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "firstName": "Mindaugas",
+      "inventory": [
+        {
+          "id": 4,
+          "name": "Dell monitor"
+        },
+        {
+          "id": 3,
+          "name": "Logitech mouse"
+        },
+        {
+          "id": 4,
+          "name": "Dell computer"
+        },
+        {
+          "id": 5,
+          "name": "Logitech keyboard"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "firstName": "Kęstutis",
+      "inventory": [
+        {
+          "id": 2,
+          "name": "Asus monitor"
+        },
+        {
+          "id": 3,
+          "name": "Logitech mouse"
+        },
+        {
+          "id": 4,
+          "name": "Dell computer"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "firstName": "Linas",
+      "inventory": []
+    }
+  ],
+  "inventory": [
+    {
+      "id": 1,
+      "name": "Dell monitor",
+      "amount": 5,
+      "taken": 5,
+	  "type": 1
+    },
+    {
+      "id": 2,
+      "name": "Asus monitor",
+      "amount": 10,
+      "taken": 2,
+	  "type": 1
+    },
+    {
+      "id": 3,
+      "name": "Logitech mouse",
+      "amount": 12,
+      "taken": 4,
+	  "type": 3
+    },
+    {
+      "id": 4,
+      "name": "Dell computer",
+      "amount": 4,
+      "taken": 2,
+	  "type": 4
+    },
+    {
+      "id": 5,
+      "name": "Logitech keyboard",
+      "amount": 5,
+      "taken": 2,
+	  "type": 2
+    },
+	  {
+      "id": 6,
+      "name": "Samsung monitor",
+      "amount": 4,
+      "taken": 3,
+	  "type": 1
+    }
+  ],
+  "inventory-types": [
+	{
+		"id": 1,
+		"name": "Monitor"
+	},
+	{
+		"id": 2,
+		"name": "Keyboard"
+	},
+	{
+		"id": 3,
+		"name": "Mouse"
+	},
+	{
+		"id": 4,
+		"name": "Computer"
+	}
+  ]
+}

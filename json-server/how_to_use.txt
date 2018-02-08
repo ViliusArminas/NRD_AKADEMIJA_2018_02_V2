@@ -1,0 +1,4 @@
+1. Ásiraðyti json-server su komanda - npm install -g json-server
+2. Direktorijoje su db.json failu, paleisi komanda - json-server --watch db.json
+
+Daugiau info - https://github.com/typicode/json-server
