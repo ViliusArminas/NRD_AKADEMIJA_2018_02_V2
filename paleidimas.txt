@@ -1,0 +1,7 @@
+1. Repositorija nusiklonuojama i kompiuterá su git clone ( pvz.: git clone https://github.com/ViliusArminas/NRD_Akademija_2018_04.git )
+2. Kompiuteryje áraðomas angular-cli su cmd komanda -> npm install -g @angular/cli
+3. Kompiuteryje áraðomas json server su cmd komanda -> npm install -g json-server
+4. Projekto direktorijoje paleidþiama komanda -> npm install
+5. Startuojamas json-server serveris su komanda (reikia bûti direktorijoje su db.json failu) -> json-server --watch db.json 
+6. Startuojama angular-cli aplikacija su komanda -> ng serve ( arba npm start ).
+7. Aplikacija pasiekiama adresu http://localhost:4200
