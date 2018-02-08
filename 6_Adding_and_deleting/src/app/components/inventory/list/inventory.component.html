@@ -1,0 +1,40 @@
+<h2>Inventory</h2>
+
+<div *ngIf="loading; else listBlock">
+    <div class="text-center">
+        <i class="fa fa-spinner fa-spin" style="font-size:48px"></i>
+    </div>
+</div>
+<ng-template #listBlock>
+    <!-- filtras aprasytas paprastai componente -->
+    <!-- <div class="container">
+            <button *ngFor="let t of inventoryTypes$ | async" type="button" class="btn btn-primary mb-3" (click)="setTypeFilter(t.id)">{{t.name}}</button>
+        </div>-->
+
+    <!-- filtras atskiram componente -->
+    <app-inventory-filter-buttons [inventoryTypesInDifferentComponent$]="inventoryTypes$" (filterEvent)=setTypeFilter($event)></app-inventory-filter-buttons>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th *ngFor="let h of inventoryHeaders">{{h.label}}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- filtruojam be pipe -->
+            <!-- <tr *ngFor="let i of filterInventoryOfTypes(typeFilter) | async; let ind = index;"> -->
+            <!-- filtruojam su pipe -->
+            <tr *ngFor="let i of inventory$ | async | inventoryTypeFilter: typeFilter; let ind = index;">
+                <th>{{ind+1}}</th>
+                <th>{{i.name}}</th>
+                <th *ngIf="countItemsLeft(i.amount, i.taken) > 0; else outOfStock">{{countItemsLeft(i.amount, i.taken)}}</th>
+                <ng-template #outOfStock>
+                    <th>
+                        <i class="fa fa-times"></i>
+                    </th>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</ng-template>
