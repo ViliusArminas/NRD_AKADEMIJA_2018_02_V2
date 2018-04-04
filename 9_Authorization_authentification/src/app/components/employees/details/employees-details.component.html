@@ -1,0 +1,88 @@
+<h2> {{action}} - Employee</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form (ngSubmit)="save(employeeForm)" #employeeForm="ngForm" novalidate>
+            <div class="form-group" [class.has-danger]="firstName.invalid && pressedSaveButton">
+                <label class="form-control-label" for="name">Employee name</label>
+                <input #firstName="ngModel" type="text" maxlength="10" [(ngModel)]="employee.firstName" required name="firstName" class="form-control"
+                    id="name" placeholder="Enter name">
+                <small *ngIf="firstName.invalid && pressedSaveButton" class="form-text text-muted text-danger">Name is required</small>
+            </div>
+
+            <div class="form-group" [class.has-danger]="email.invalid && pressedSaveButton">
+                <label class="form-control-label" for="name">Employee email</label>
+                <input #email="ngModel" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="employee.email" required
+                    name="email" class="form-control" id="name" placeholder="Enter email">
+                <small *ngIf="email.invalid && pressedSaveButton" class="form-text text-muted text-danger">Correct email is required</small>
+            </div>
+            <div class="form-group" [class.has-danger]="workplaceSelectedError">
+                <label class="form-control-label" for="workplace">Workplace</label>
+                <select #workplace="ngModel" (ngModelChange)="checkIfWorkplaceSelected($event)" [(ngModel)]="employee.workplace" name="workplace"
+                    class="form-control">
+                    <option [value]="'default'">Select workplace</option>
+                    <option *ngFor="let c of cities" [value]="c">{{c}}</option>
+                </select>
+
+                <small *ngIf="workplaceSelectedError" class="form-text text-muted text-danger">Workplace is required</small>
+            </div>
+            <h3 class="text-center"> Inventory Assigned</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of employee.inventory; let ind = index;">
+                        <th>{{ind+1}}</th>
+                        <th>{{i.name}}</th>
+                        <th>
+                            <button (click)="removeFromEmployee(ind)" type="button" class="btn btn-danger">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button routerLink="/employees" type="button" class="btn btn-default">Back</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h3 class="text-center"> Available Inventory</h3>
+        <div *ngIf="availableInventoryLoading; else inventoryListBlock">
+            <div class="text-center">
+                <i class="fa fa-spinner fa-spin" style="font-size:48px"></i>
+            </div>
+        </div>
+        <ng-template #inventoryListBlock>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Left in stock</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of availableInventory; let ind = index;">
+                        <ng-container *ngIf="i.amount - i.taken > 0">
+                            <th>{{ind+1}}</th>
+                            <th>{{i.name}}</th>
+                            <th>{{countItemsLeft(i.amount,i.taken)}}</th>
+                            <th>
+                                <button (click)="addForEmployee(i, ind)" class="btn btn-success">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </th>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </div>
+</div>

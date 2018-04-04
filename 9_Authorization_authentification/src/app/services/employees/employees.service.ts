@@ -18,29 +18,29 @@ export class EmployeeService {
             .catch((error: any) => Observable.throw(error));
     }
 
-    get(id): Observable<any[]> {
+    getItem(id): Observable<EmployeeModel> {
         return this.http.get(this.url + '/' + id)
+            .map((res: Response) => res.json() as EmployeeModel)
+            .catch((error: any) => Observable.throw(error));
+    }
+
+    saveItem(item): Observable<any> {
+        return this.http.post(this.url, item)
             .map((res: Response) => res.json() as any[])
             .catch((error: any) => Observable.throw(error));
     }
 
-    insert(data): Observable<any[]> {
-        return this.http.post(this.url, data)
+    updateItem(item): Observable<any> {
+        return this.http.put(this.url + '/' + item.id, item)
             .map((res: Response) => res.json() as any[])
             .catch((error: any) => Observable.throw(error));
     }
 
-    update(data, id): Observable<any[]> {
-        return this.http.put(this.url + '/' + id, data)
-            .map((res: Response) => res.json() as any[])
-            .catch((error: any) => Observable.throw(error));
-    }
 
-    delete(id): Observable<any[]> {
+    deleteItem(id): Observable<any[]> {
         return this.http.delete(this.url + '/' + id)
-            .map((res: Response) => res.json() as any[])
+            .map((res: Response) => res.json() as any)
             .catch((error: any) => Observable.throw(error));
     }
-
 
 }

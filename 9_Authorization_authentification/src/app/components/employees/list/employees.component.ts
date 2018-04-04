@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeService } from '../../../services/employees/employees.service';
 import { Observable, BehaviorSubject } from 'rxjs/';
 import { Router } from '@angular/router';
-import { ToastModule } from 'ng2-toastr/src/toast.module';
 import { ToastsManager } from 'ng2-toastr';
 
 @Component({
@@ -22,13 +21,15 @@ export class EmployeesComponent implements OnInit {
     employeeHeaders: any[] = [
         { col: 'no', label: '#' },
         { col: 'firstName', label: 'First Name' },
+        { col: 'email', label: 'Email' },
+        { col: 'workplace', label: 'Workplace' },
         { col: 'inventorySize', label: 'Inventory Size' }
     ];
 
     constructor(private router: Router,
         private modalService: NgbModal,
         private employeeService: EmployeeService,
-        private tostr: ToastsManager) { }
+        public toastr: ToastsManager) { }
 
     ngOnInit() {
         this.refreshList();
@@ -36,7 +37,6 @@ export class EmployeesComponent implements OnInit {
 
     refreshList() {
         this.loading = true;
-
         this.employeeService.getList().subscribe((data: EmployeeModel[]) => {
             this.employees$ = Observable.of(data);
             this.loading = false;
@@ -52,14 +52,18 @@ export class EmployeesComponent implements OnInit {
         this.router.navigate(['/employees/new']);
     }
 
-    edit(id) {
-        this.router.navigate(['/employees/' + id]);
+    delete(id) {
+        this.employeeService.deleteItem(id).subscribe(res => {
+            console.log(res);
+            this.toastr.success('Employee deleted', 'Success!');
+            this.refreshList();
+        },
+            (err) => {
+                console.log(err);
+            });
     }
 
-    remove(id) {
-        this.employeeService.delete(id).subscribe((res: any) => {
-            this.tostr.warning('Deleted Successfully!');
-            this.refreshList();
-        });
+    edit(id) {
+        this.router.navigate(['/employees/' + id]);
     }
 }

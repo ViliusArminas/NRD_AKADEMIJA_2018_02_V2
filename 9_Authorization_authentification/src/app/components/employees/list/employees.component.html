@@ -18,19 +18,16 @@
             <tr *ngFor="let e of employees$ | async; let ind = index;">
                 <th>{{ind+1}}</th>
                 <th>{{e.firstName}}</th>
+                <th>{{e.email}}</th>
+                <th>{{e.workplace}}</th>
                 <th>{{e.inventory.length}}</th>
                 <th>
                     <button [disabled]="e.inventory.length === 0" class="btn btn-outline-primary" (click)="open(modal, ind)">
                         <i class="fa fa-search"></i> Check details</button>
                     <button class="btn btn-outline-warning" (click)="edit(e.id)">
                         <i class="fa fa-edit"></i> Edit</button>
-                    <button class="btn btn-outline-danger" (click)="remove(e.id)">
-                        <i class="fa fa-close"></i> Remove</button>
-                    <button class="btn btn-default" mwlConfirmationPopover [popoverTitle]="'Ar tikrai?'" [popoverMessage]="'Ar tikrai norite istrinti?'"
-                        placement="left" (confirm)="remove(e.id)" (cancel)="cancelClicked = true">
-                        Click me!
-                    </button>
-
+                    <button class="btn btn-outline-danger" (click)="delete(e.id)">
+                        <i class="fa fa-times"></i> Delete</button>
                 </th>
             </tr>
         </tbody>

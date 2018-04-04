@@ -1,0 +1,59 @@
+<form #employeeForm="ngForm" novalidate>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="form-group">
+                    <label for="exampleInputEmail1">First Name</label>
+                    <input #fistName="ngModel" type="text" class="form-control" name="firstName" [(ngModel)]="firstName" required placeholder="Iveskite varda">
+                    <small *ngIf="fistName.invalid">Name is required</small>
+                </div>
+
+                <div class="form-group" [class.has-danger]="email.invalid">
+                    <label class="form-control-label" for="name">Employee email</label>
+                    <input #email="ngModel" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="emaill" required name="emaill"
+                        class="form-control" id="name" placeholder="Enter email">
+                    <small *ngIf="email.invalid" class="form-text text-muted text-danger">Correct email is required</small>
+                </div>
+                <h3>Employees' Inventory</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let inventory of employeeInventory; let ind = index;">
+                            <th>{{inventory.name}}</th>
+                            <th>
+                                <button type="button" class="btn btn-danger" (click)="remove(ind)">Remove</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-sm-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let inventory of inventoryItems; let ind = index;">
+                            <th>{{inventory.name}}</th>
+                            <th>
+                                <button type="button" class="btn btn-success" (click)="addToEmployee(inventory)">Add</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" (click)="addNew(employeeForm)" class="btn btn-primary">Submit</button>
+</form>

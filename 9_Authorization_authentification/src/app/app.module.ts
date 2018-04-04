@@ -15,9 +15,12 @@ import { EmployeesDetailsComponent } from './components/employees/details/employ
 import { InventoryTypeFilterPipe } from './pipes/inventory-type-filter.pipe';
 import { InventoryFilterComponent } from './components/inventory/list/filter/inventory-filter.component';
 import { FormsModule } from '@angular/forms';
-import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { AuthService } from './services/auth/auth.service';
+import { CallbackComponent } from './components/callback/callback.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -27,21 +30,20 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     InventoryComponent,
     EmployeesDetailsComponent,
     InventoryTypeFilterPipe,
-    InventoryFilterComponent
+    InventoryFilterComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpModule,
-    NgbModule.forRoot(),
+    HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule,
-    ToastModule.forRoot(),
-    ConfirmationPopoverModule.forRoot({
-      confirmButtonType: 'danger' // set defaults here
-    })
+    NgbModule.forRoot(),
+    ToastModule.forRoot()
   ],
-  providers: [EmployeeService, InventoryService],
+  providers: [EmployeeService, InventoryService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
