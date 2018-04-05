@@ -20,6 +20,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { AuthService } from './services/auth/auth.service';
 import { CallbackComponent } from './components/callback/callback.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule.forRoot(),
     ToastModule.forRoot()
   ],
-  providers: [EmployeeService, InventoryService, AuthService],
+  providers: [EmployeeService, InventoryService, AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,18 +6,18 @@
   <a class="navbar-brand" href="#" routerLink="">Inventory Management System</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-      <li class="nav-item" [class.active]="router.url === '/employees'">
+      <li *ngIf="authService.isAuthenticated() && authService.userHasScopes(['read:employees'])" class="nav-item" [class.active]="router.url === '/employees'">
         <a class="nav-link" routerLink="employees">Employees
         </a>
       </li>
-      <li class="nav-item" [class.active]="router.url === '/inventory'">
+      <li *ngIf="authService.isAuthenticated() && authService.userHasScopes(['read:inventory'])" class="nav-item" [class.active]="router.url === '/inventory'">
         <a class="nav-link" (click)="routeToInventory()">Inventory</a>
       </li>
       <li class="nav-item pull-right">
-        <a class="nav-link" *ngIf="!isAuthenticated()" (click)="login()">Prisijungti</a>
+        <a class="nav-link" *ngIf="!authService.isAuthenticated()" (click)="login()">Prisijungti</a>
       </li>
       <li class="nav-item pull-right">
-        <a class="nav-link" *ngIf="isAuthenticated()" (click)="logout()">Atsijungti</a>
+        <a class="nav-link" *ngIf="authService.isAuthenticated()" (click)="logout()">Atsijungti</a>
       </li>
     </ul>
 
